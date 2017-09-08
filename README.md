@@ -3,6 +3,13 @@ A tutorial for setting up an AWS EC2 instance, installing libraries and training
 
 ![](img/1_index.png )
 
+**Prerequisite:** Install AWS Command Line Interface: http://docs.aws.amazon.com/cli/latest/userguide/installing.html
+If you have `pip` and Python, it's as simple as `$ pip install awscli --upgrade --user`
+
+Okay then, let's begin!
+
+# Part 1 - Launch an EC2 Instance with Deep Learning AMI
+
 ### 1. Create and login to a free account at https://aws.amazon.com/
 ### 2. From the console, click 'EC2'
 
@@ -28,8 +35,22 @@ In addition to the default SSH rule, add HTTPS and Custom TCP rules shown as bel
 ![](img/6_sec_group.png)
 
 ### 7. Launch instance
-Follow the prompt to create and download a key pair that will allow you to connect securely to your instance.
+Follow the prompt to create and download a key pair that will allow you to connect securely to your instance. Create a new folder named **aws_tutorial** and save the key_pair.pem file there.
 
 ![](img/7_key_pair.png)
 
-On the Launch Status page, click 'View Instances'
+On the Launch Status page, click 'View Instances.' You will see a lot of info about the new instance including its DNS name and public IP address, both of which we will use to access the VM.
+
+# Part 2 - Set up Environment on the EC2 Instance
+
+### 1. SSH to the instance
+Navigate to **aws_tutorial** where you stored key_pair.pem. On the command line enter the following:
+
+`ssh -i <PATH_TO_PEM> ec2-user@ec2-xx-xxx-xx-xxx.eu-west-1.compute.amazonaws.com`
+
+Because the current directory contains the key pair, `<PATH_TO_PEM>` is simply the key pair file name. Replace `ec2-xx-xxx-xx-xxx` with the Public DNS (IPv4) for your instance found on the Instances dashboard.
+
+### 2. Install Seaborn data visualization package for Python.
+`pip install seaborn`
+
+Easy as that. This is the only library we will use that is not preinstalled on the AMI.
