@@ -3,4 +3,4 @@ A tutorial for setting up an AWS EC2 instance, installing libraries and training
 
 ![](img/index.png )
 
-**First**, create and login to a free account at https://aws.amazon.com/ 
+### 1. Create and login to a free account at https://aws.amazon.com/ 
