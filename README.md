@@ -35,7 +35,7 @@ In addition to the default SSH rule, add HTTPS and Custom TCP rules shown as bel
 ![](img/6_sec_group.png)
 
 ### 7. Launch instance
-Follow the prompt to create and download a key pair that will allow you to connect securely to your instance. Create a new folder named **aws_tutorial** and save the key_pair.pem file there.
+Hit 'Launch'. Follow the prompt to create and download a key pair that will allow you to connect securely to your instance. Create a new folder named **aws_tutorial** and save the key_pair.pem file there.
 
 ![](img/7_key_pair.png)
 
@@ -44,7 +44,7 @@ On the Launch Status page, click 'View Instances.' You will see a lot of info ab
 # Part 2 - Set up Environment on the EC2 Instance
 
 ### 1. SSH to the instance
-Navigate to **aws_tutorial** where you stored key_pair.pem. On the command line enter the following:
+Using your command-line tool, navigate to **aws_tutorial** where you stored key_pair.pem. Enter the following:
 
 `ssh -i <PATH_TO_PEM> ec2-user@ec2-xx-xxx-xx-xxx.eu-west-1.compute.amazonaws.com`
 
@@ -53,4 +53,13 @@ Because the current directory contains the key pair, `<PATH_TO_PEM>` is simply t
 ### 2. Install Seaborn data visualization package for Python.
 `pip install seaborn`
 
-Easy as that. This is the only library we will use that is not preinstalled on the AMI.
+Easy as that. This is the only library we will use that is not preinstalled on the Deep Learning AMI.
+
+# Part 3 - Configure Jupyter Server
+
+### 1. Choose a password to access notebooks
+Enter the following commands and follow prompt to set a password:
+
+`jupyter notebook --generate-config`
+
+`key=$(python -c "from notebook.auth import passwd; print(passwd())")`
