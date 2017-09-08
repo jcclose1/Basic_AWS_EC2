@@ -18,12 +18,18 @@ We will use Deep Learning AMI, which comes preinstalled with Jupyter and machine
 ![](img/4_choose_ami.png)
 
 ### 5. Choose the general purpose t2.micro instance type that is selected by default
-For the purpose of this tutorial, t2.micro is sufficient and is also free for the amount we will use it. However, this is where you could scroll down and select GPU instances if you planned to do some heavier lifting and train a deep neural network for image classification, for example. Click 'Next' on this and the next several screens until you land at **Configure Security Group**.
+For the purpose of this tutorial, t2.micro is sufficient and is also free for the amount we will use it. However, this is where you could scroll down and select a GPU instance if you planned to train a deep neural network for image classification, for example. Click 'Next' on this and the next several screens until you land at **Configure Security Group**.
 
 ![](img/5_instance_type.png)
 
 ### 6. Configure security group.
-In addition to the default SSH rule, add HTTPS and Custom TCP rules shown as below. These will allow us to access the Jupyter server from our browser via HTTPS. Note that by setting the source IP to 0.0.0.0/0 for each rule, we are allowing all IP addresses to access the VM instance. If we were working on a sensitive project we wanted to secure, we would specify just one or perhaps a range of IP addresses that could access the instance. Click **Review & Launch**.
+In addition to the default SSH rule, add HTTPS and Custom TCP rules shown as below. These will allow us to access the Jupyter server from our browser via HTTPS. Note that by setting the source IP to 0.0.0.0/0 for each rule, we are allowing all IP addresses to access the VM instance. If we were working on a sensitive project we wanted to secure better, we would specify just one or perhaps a range of IP addresses that could access the instance. Click **Review & Launch**.
 
 ![](img/6_sec_group.png)
 
+### 7. Launch instance
+Follow the prompt to create and download a key pair that will allow you to connect securely to your instance.
+
+![](img/7_key_pair.png)
+
+On the Launch Status page, click 'View Instances'
