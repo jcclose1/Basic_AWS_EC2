@@ -57,9 +57,24 @@ Easy as that. This is the only library we will use that is not preinstalled on t
 
 # Part 3 - Configure Jupyter Server
 
-### 1. Choose a password to access notebooks
+### 1. Generate Jupyter configuration file and choose password to access notebooks
 Enter the following commands and follow prompt to set a password:
 
 `jupyter notebook --generate-config`
 
 `key=$(python -c "from notebook.auth import passwd; print(passwd())")`
+
+### 2. Generate certificates from your chosen password
+Enter the below commands and follow prompts. If you like, you may leave all fields blank when asked for info to be incorporated into the certificate request (Country Name, State or Province Name, etc.)
+
+`cd ~`
+
+`mkdir certs`
+
+`cd certs`
+
+`certdir=$(pwd)`
+
+`openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.key -out mycert.pem`
+
+### 3. Point Jupyter configuration file at your newly created certificates
