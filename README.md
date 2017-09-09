@@ -8,7 +8,7 @@ If you have `pip` and Python, it's as simple as `$ pip install awscli --upgrade 
 
 Okay then, let's begin!
 
-# Part 1 - Launch an EC2 Instance with Deep Learning AMI
+# Part 1 - Launch an connect to EC2 Instance with Deep Learning AMI
 
 ### 1. Create and login to a free account at https://aws.amazon.com/
 ### 2. From the console, click 'EC2'
@@ -41,40 +41,47 @@ Hit 'Launch'. Follow the prompt to create and download a key pair that will allo
 
 On the Launch Status page, click 'View Instances.' You will see a lot of info about the new instance including its DNS name and public IP address, both of which we will use to access the VM.
 
-# Part 2 - Set up Environment on the EC2 Instance
-
-### 1. SSH to the instance
+### 8. SSH to the instance
 Using your command-line tool, navigate to **aws_tutorial** where you stored key_pair.pem. Enter the following:
 
 `ssh -i <PATH_TO_PEM> ec2-user@ec2-xx-xxx-xx-xxx.eu-west-1.compute.amazonaws.com`
 
 Because the current directory contains the key pair, `<PATH_TO_PEM>` is simply the key pair file name. Replace `ec2-xx-xxx-xx-xxx` with the Public DNS (IPv4) for your instance found on the Instances dashboard.
 
-### 2. Install Seaborn data visualization package for Python.
-`pip install seaborn`
+### 9. Install additional libraries on your EC2.
+Since we chose Amazon's Deep Learning AMI, we already have the libraries we need for this tutorial. However, if you chose a 'vanilla' AMI that is not specialized for any task, you can set up your environment easily using `pip install` to add packages.
 
-Easy as that. This is the only library we will use that is not preinstalled on the Deep Learning AMI.
-
-# Part 3 - Configure Jupyter Server
+# Part 2 - Configure Jupyter Server
 
 ### 1. Generate Jupyter configuration file and choose password to access notebooks
 Enter the following commands and follow prompt to set a password:
 
-`jupyter notebook --generate-config`
-
-`key=$(python -c "from notebook.auth import passwd; print(passwd())")`
+```python
+jupyter notebook --generate-config
+key=$(python -c "from notebook.auth import passwd; print(passwd())")
+```
 
 ### 2. Generate certificates from your chosen password
 Enter the below commands and follow prompts. If you like, you may leave all fields blank when asked for info to be incorporated into the certificate request (Country Name, State or Province Name, etc.)
 
-`cd ~`
-
-`mkdir certs`
-
-`cd certs`
-
-`certdir=$(pwd)`
-
-`openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.key -out mycert.pem`
+```python
+cd ~
+mkdir certs
+cd certs
+certdir=$(pwd)
+openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.key -out mycert.pem
+```
 
 ### 3. Point Jupyter configuration file at your newly created certificates
+Enter this command so that Jupyter server to grant access to notebooks over HTTPS when your chosen password is provided:
+```python
+cd ~
+sed -i "1 a\
+c = get_config()\\
+c.NotebookApp.certfile = u'$certdir/mycert.pem'\\
+c.NotebookApp.keyfile = u'$certdir/mycert.key'\\
+c.NotebookApp.ip = '*'\\
+c.NotebookApp.open_browser = False\\
+c.NotebookApp.password = u'$key'\\
+c.NotebookApp.port = 8888" .jupyter/jupyter_notebook_config.py
+```
