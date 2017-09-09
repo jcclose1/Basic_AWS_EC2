@@ -3,8 +3,10 @@ A tutorial for setting up an AWS EC2 instance, installing libraries and training
 
 ![](img/1_index.png )
 
-**Prerequisite:** Install AWS Command Line Interface: http://docs.aws.amazon.com/cli/latest/userguide/installing.html
-If you have `pip` and Python, it's as simple as `$ pip install awscli --upgrade --user`
+**Prerequisites:** 
+  1. Clone this repo to your local machine.
+  2. Install AWS Command Line Interface: http://docs.aws.amazon.com/cli/latest/userguide/installing.html
+     If you have `pip` and Python, it's as simple as `$ pip install awscli --upgrade --user`
 
 Okay then, let's begin!
 
