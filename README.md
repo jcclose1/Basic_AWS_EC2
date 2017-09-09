@@ -37,21 +37,21 @@ In addition to the default SSH rule, add HTTPS and Custom TCP rules shown as bel
 ![](img/6_sec_group.png)
 
 ### 7. Launch instance
-Hit 'Launch'. Follow the prompt to create and download a key pair that will allow you to connect securely to your instance. Create a new folder named **aws_tutorial** and save the key_pair.pem file there. In the below image, the downloaded key pair file will be called tutorial.pem.
+Hit 'Launch'. Follow the prompt to create and download a key pair that will allow you to connect securely to your instance. Save the key pair to the **Basic_AWS_EC2** folder containing the cloned repo. In the below image, I've named the key pair 'tutorial,' so the downloaded key pair file will be called tutorial.pem.
 
 ![](img/7_key_pair.png)
 
 On the Launch Status page, click 'View Instances.' You will see a lot of info about the new instance including its DNS name and public IP address, both of which we will use to access the VM.
 
 ### 8. SSH to the instance
-Using your command-line tool, navigate to **aws_tutorial** where you stored key_pair.pem. Enter the following:
+Using your command-line tool, navigate to **Basic_AWS_EC2** where you stored key_pair.pem. Enter the following:
 
 `ssh -i <PATH_TO_PEM> ec2-user@ec2-xx-xxx-xx-xxx.us-west-2.compute.amazonaws.com`
 
 Because the current directory contains the key pair, `<PATH_TO_PEM>` is simply the key pair file name. Replace `ec2-xx-xxx-xx-xxx` with the Public DNS (IPv4) for your instance found on the Instances dashboard.
 
 ### 9. Install additional libraries on your EC2.
-Since we chose Amazon's Deep Learning AMI, we already have the libraries we need for this tutorial. However, if you chose a 'vanilla' AMI that is not specialized for any task, you can set up your environment easily using `pip install` to add packages.
+Since we chose Amazon's Deep Learning AMI, we already have the libraries we need for this tutorial. However, if you had chosen a 'vanilla' AMI that is not specialized for any task, you could set up your environment easily using `pip install` to add packages.
 
 # Part 2 - Configure Jupyter Server
 
@@ -75,7 +75,7 @@ openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.key -out myce
 ```
 
 ### 3. Point Jupyter configuration file at your newly created certificates
-Enter this command so that Jupyter server to grant access to notebooks over HTTPS when your chosen password is provided:
+This command edits your Jupyter configuration file so that Jupyter server will grant access to notebooks over HTTPS when your password is provided:
 ```python
 cd ~
 sed -i "1 a\
@@ -88,7 +88,7 @@ c.NotebookApp.password = u'$key'\\
 c.NotebookApp.port = 8888" .jupyter/jupyter_notebook_config.py
 ```
 # Part 3 - Run Jupyter server and copy notebook to it from cloned repo
-On the EC2 instance we'll create a folder `notebook` and start the Jupyter server from that location. On the EC2 instance, start Jupyter server the same way you do from your local machine.
+On the EC2 instance we'll create a folder `notebook` and start the Jupyter server from that location. On the EC2 instance, start Jupyter server with the same command you use on your local machine.
 
 ```python
 mkdir notebook
@@ -100,9 +100,9 @@ You can now access the Jupyter server in your browser at this URL:
 ```python
 https://<your-instance-public-ip>:8888
 ```
-Now, open a new terminal window on your local machine and navigate to the folder containing both the cloned repo and your .pem key pair file. Enter the following command to securely copy the ipynb notebook in that folder to the EC2 instance:
+Open a new terminal window on your local machine and navigate to **Basic_AWS_EC2**. Enter the following command to securely copy the ipynb notebook in that folder to the EC2 instance:
 
 ```python
-scp -i <PATH_TO_PEM> placeholder.ipynb ec2-user@ec2-xx-xxx-xx-xxx.us-west-2.compute.amazonaws.com:./notebook
+scp -i <PATH_TO_PEM> AWS_NN_tutorial.ipynb ec2-user@ec2-xx-xxx-xx-xxx.us-west-2.compute.amazonaws.com:./notebook
 ```
 You should now be able to run the copied notebook in your browser and proceed with the neural network demo using Theano!
