@@ -35,7 +35,7 @@ In addition to the default SSH rule, add HTTPS and Custom TCP rules shown as bel
 ![](img/6_sec_group.png)
 
 ### 7. Launch instance
-Hit 'Launch'. Follow the prompt to create and download a key pair that will allow you to connect securely to your instance. Create a new folder named **aws_tutorial** and save the key_pair.pem file there.
+Hit 'Launch'. Follow the prompt to create and download a key pair that will allow you to connect securely to your instance. Create a new folder named **aws_tutorial** and save the key_pair.pem file there. In the below image, the downloaded key pair file will be called tutorial.pem.
 
 ![](img/7_key_pair.png)
 
@@ -44,7 +44,7 @@ On the Launch Status page, click 'View Instances.' You will see a lot of info ab
 ### 8. SSH to the instance
 Using your command-line tool, navigate to **aws_tutorial** where you stored key_pair.pem. Enter the following:
 
-`ssh -i <PATH_TO_PEM> ec2-user@ec2-xx-xxx-xx-xxx.eu-west-1.compute.amazonaws.com`
+`ssh -i <PATH_TO_PEM> ec2-user@ec2-xx-xxx-xx-xxx.us-west-2.compute.amazonaws.com`
 
 Because the current directory contains the key pair, `<PATH_TO_PEM>` is simply the key pair file name. Replace `ec2-xx-xxx-xx-xxx` with the Public DNS (IPv4) for your instance found on the Instances dashboard.
 
@@ -85,3 +85,22 @@ c.NotebookApp.open_browser = False\\
 c.NotebookApp.password = u'$key'\\
 c.NotebookApp.port = 8888" .jupyter/jupyter_notebook_config.py
 ```
+# Part 3 - Run Jupyter server and copy notebook to it from cloned repo
+On the EC2 instance we'll create a folder `notebook` and start the Jupyter server from that location. On the EC2 instance, start Jupyter server the same way you do from your local machine.
+
+```python
+mkdir notebook
+cd notebook
+jupyter notebook
+```
+You can now access the Jupyter server in your browser at this URL:
+
+```python
+https://<your-instance-public-ip>:8888
+```
+Now, open a new terminal window on your local machine and navigate to the folder containing both the cloned repo and your .pem key pair file. Enter the following command to securely copy the ipynb notebook in that folder to the EC2 instance:
+
+```python
+scp -i <PATH_TO_PEM> placeholder.ipynb ec2-user@ec2-xx-xxx-xx-xxx.us-west-2.compute.amazonaws.com:./notebook
+```
+You should now be able to run the copied notebook in your browser and proceed with the neural network demo using Theano!
