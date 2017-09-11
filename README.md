@@ -58,7 +58,7 @@ Since we chose Amazon's Deep Learning AMI, we already have the libraries we need
 ### 1. Generate Jupyter configuration file and choose password to access notebooks
 Enter the following commands and follow prompt to set a password:
 
-```python
+```
 jupyter notebook --generate-config
 key=$(python -c "from notebook.auth import passwd; print(passwd())")
 ```
@@ -66,7 +66,7 @@ key=$(python -c "from notebook.auth import passwd; print(passwd())")
 ### 2. Generate certificates from your chosen password
 Enter the below commands and follow prompts. If you like, you may leave all fields blank when asked for info to be incorporated into the certificate request (Country Name, State or Province Name, etc.)
 
-```python
+```
 cd ~
 mkdir certs
 cd certs
@@ -76,7 +76,7 @@ openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.key -out myce
 
 ### 3. Point Jupyter configuration file at your newly created certificates
 This command edits your Jupyter configuration file so that Jupyter server will grant access to notebooks over HTTPS when your password is provided:
-```python
+```
 cd ~
 sed -i "1 a\
 c = get_config()\\
@@ -90,19 +90,19 @@ c.NotebookApp.port = 8888" .jupyter/jupyter_notebook_config.py
 # Part 3 - Run Jupyter server and copy notebook to it from cloned repo
 On the EC2 instance we'll create a folder `notebook` and start the Jupyter server from that location. On the EC2 instance, start Jupyter server with the same command you use on your local machine.
 
-```python
+```
 mkdir notebook
 cd notebook
 jupyter notebook
 ```
 You can now access the Jupyter server in your browser at this URL:
 
-```python
+```
 https://<your-instance-public-ip>:8888
 ```
 Open a new terminal window on your local machine and navigate to **Basic_AWS_EC2**. Enter the following command to securely copy the ipynb notebook in that folder to the EC2 instance:
 
-```python
+```
 scp -i <PATH_TO_PEM> AWS_NN_tutorial.ipynb ec2-user@ec2-xx-xxx-xx-xxx.us-west-2.compute.amazonaws.com:./notebook
 ```
 You should now be able to run the copied notebook in your browser and proceed with the neural network demo using Theano!
