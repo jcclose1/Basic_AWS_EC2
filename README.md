@@ -4,7 +4,7 @@ A tutorial for setting up an AWS EC2 instance, installing libraries and training
 ![](img/1_index.png )
 
 **Frontmatter:** 
-  1. Connect to a private network. AWS will not let you secure shell to a virtual machine instance over Starbucks Wi-Fi...
+  1. Connect to a private network. AWS will not let you secure shell to a virtual machine instance over Starbucks Wi-Fi.
   2. Clone this repo to your local machine.
   3. Install AWS Command Line Interface: http://docs.aws.amazon.com/cli/latest/userguide/installing.html
      If you have `pip` and Python, it's as simple as `$ pip install awscli --upgrade --user`
