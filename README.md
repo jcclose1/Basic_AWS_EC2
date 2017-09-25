@@ -37,7 +37,11 @@ In addition to the default SSH rule, add HTTPS and Custom TCP rules shown as bel
 ![](img/6_sec_group.png)
 
 ### 7. Launch instance
-Hit 'Launch'. Follow the prompt to create and download a key pair that will allow you to connect securely to your instance. Save the key pair to the **Basic_AWS_EC2** folder containing the cloned repo. In the below image, I've named the key pair 'tutorial,' so the downloaded key pair file will be called tutorial.pem.
+Hit 'Launch'. Follow the prompt to create and download a key pair that will allow you to connect securely to your instance. Save the key pair to the **Basic_AWS_EC2** folder containing the cloned repo. From the command line, change the permissions for the key pair file by entering
+```
+chmod 400 key_pair.pem
+```
+In the below image, I've named the key pair 'tutorial,' so the downloaded key pair file will be called `tutorial.pem`.
 
 ![](img/7_key_pair.png)
 
