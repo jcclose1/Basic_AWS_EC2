@@ -4,7 +4,7 @@ A tutorial for setting up an AWS EC2 instance, installing libraries and training
 ![](img/1_index.png )
 
 **Frontmatter:** 
-  1. Connect to a private network. AWS will not let you secure shell to a virtual machine instance over Starbucks Wi-Fi.
+  1. Connect to a private network. AWS will not let you secure shell to a virtual machine instance over Starbucks Wi-Fi, for example.
   2. Clone this repo to your local machine.
   3. Install AWS Command Line Interface: http://docs.aws.amazon.com/cli/latest/userguide/installing.html
      If you have `pip` and Python, it's as simple as `$ pip install awscli --upgrade --user`
@@ -110,4 +110,6 @@ Open a new terminal window on your local machine and navigate to **Basic_AWS_EC2
 ```
 scp -i <PATH_TO_PEM> AWS_NN_tutorial.ipynb ec2-user@ec2-xx-xxx-xx-xxx.us-west-2.compute.amazonaws.com:./notebook
 ```
+In addition to the notebook, securely copy `simple_nn.py` from your locally cloned repo to your EC2 instance, as it contains necessary code for the demo.
+
 You should now be able to run the copied notebook in your browser and proceed with the neural network demo using Theano!
