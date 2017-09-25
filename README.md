@@ -3,12 +3,13 @@ A tutorial for setting up an AWS EC2 instance, installing libraries and training
 
 ![](img/1_index.png )
 
-**Prerequisites:** 
-  1. Clone this repo to your local machine.
-  2. Install AWS Command Line Interface: http://docs.aws.amazon.com/cli/latest/userguide/installing.html
+**Frontmatter:** 
+  1. Connect to a private network. AWS will not let you secure shell to a virtual machine instance over Starbucks Wi-Fi...
+  2. Clone this repo to your local machine.
+  3. Install AWS Command Line Interface: http://docs.aws.amazon.com/cli/latest/userguide/installing.html
      If you have `pip` and Python, it's as simple as `$ pip install awscli --upgrade --user`
 
-Okay then, let's begin!
+Let's begin!
 
 # Part 1 - Launch an connect to EC2 Instance with Deep Learning AMI
 
